@@ -14,7 +14,7 @@ docker run
   -e MYSQL_DATABASE=english-school
   -d mysql
 
-docker run english-school
+docker start english-school
 ```
 
 Comandos [sequelize-cli](https://github.com/sequelize/cli) usados:
