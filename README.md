@@ -31,4 +31,11 @@ npx sequelize-cli seed:generate --name demo-pessoa
 
 # Inserindo os dados das seeds no banco
 npx sequelize-cli db:seed:all
+
+# Criando os novos modelos e migrações
+npx sequelize-cli model:create --name Niveis --attributes descr_nivel:string
+
+npx sequelize-cli model:create --name Turmas --attributes data_inicio:dateonly
+
+npx sequelize-cli model:create --name Matriculas --attributes status:string
 ```
