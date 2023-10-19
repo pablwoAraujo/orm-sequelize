@@ -41,4 +41,14 @@ npx sequelize-cli model:create --name Matriculas --attributes status:string
 
 # Depois de fazer as associações e referências no código, basta rodar:
 npx sequelize-cli db:migrate
+
+# criando os seeds para popular as tabelas
+npx sequelize-cli seed:generate --name demo-nivel
+
+npx sequelize-cli seed:generate --name demo-turmas
+
+npx sequelize-cli seed:generate --name demo-matriculas
+
+# Inserindo os dados das seeds no banco
+npx sequelize-cli db:seed:all
 ```
