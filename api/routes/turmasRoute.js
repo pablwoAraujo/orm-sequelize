@@ -9,5 +9,6 @@ router
   .get("/turmas/:id", TurmaController.findById)
   .post("/turmas", TurmaController.create)
   .put("/turmas/:id", TurmaController.update)
-  .delete("/turmas/:id", TurmaController.delete);
+  .delete("/turmas/:id", TurmaController.delete)
+  .post("/turmas/:id/restore", TurmaController.restore);
 module.exports = router;
