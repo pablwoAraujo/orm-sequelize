@@ -1,9 +1,31 @@
 # orm-sequelize
 
-Diagrama usado de referência do projeto
+## 📋 Índice
+- [📖 Sobre](#-Sobre)
+- [🚀 Tecnologias utilizadas](#-Tecnologias-utilizadas)
+- [📌 Como executar o projeto](#-Como-executar-o-projeto)
+- [💻 Comandos do sequelize-cli usados](#-Comandos-do-sequelize-cli-usados)
+- [🎓 Certificados](#-Certificados)
+
+## 📖 Sobre
+Projeto desenvolvido durante os cursos [Curso de ORM com NodeJS: API com Sequelize e MySQL](https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql) da Alura.
+
+> Diagrama usado de referência do projeto:
 ![Diagrama](assets/diagram.png)
 
+## 🚀 Tecnologias utilizadas
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
+- [Node.js](https://nodejs.org/en)
+- [Express](https://expressjs.com/)
+- [MySQL](https://www.mysql.com/)
+- [Sequelize](https://sequelize.org/)
+- [sequelize-cli](https://github.com/sequelize/cli)
+- [Docker](https://www.docker.com/)
+
+## 📌 Como executar o projeto
+
+Primeiro é preciso subir uma instância do mysql:
 ```bash
 docker pull mysql
 
@@ -17,7 +39,11 @@ docker run
 docker start english-school
 ```
 
-Comandos [sequelize-cli](https://github.com/sequelize/cli) usados:
+Execute o projeto node:
+```bash
+npm run dev
+```
+## 💻 Comandos do sequelize-cli usados
 
 ```bash
 # Criando o modelo e a migração de Pessoas
@@ -52,3 +78,6 @@ npx sequelize-cli seed:generate --name demo-matriculas
 # Inserindo os dados das seeds no banco
 npx sequelize-cli db:seed:all
 ```
+
+## 🎓 Certificados
+### [ORM com NodeJS: API com Sequelize e MySQL](https://cursos.alura.com.br/certificate/d72a0efc-d5bf-4d51-8fd0-220fba2f7908?lang=pt_BR)
