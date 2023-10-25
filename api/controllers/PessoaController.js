@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const database = require("../models");
 
 class PessoaController {
@@ -70,6 +71,31 @@ class PessoaController {
     try {
       await database.Pessoas.restore({ where: { id } });
       return res.status(200).json({ message: `id ${id} restored.` });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async cancel(req, res) {
+    const { id } = req.params;
+    try {
+      database.sequelize.transaction(async transaction => {
+        await database.Pessoas.update(
+          { ativo: false },
+          { where: { id: Number(id) },
+          transaction }
+        );
+  
+        await database.Matriculas.update(
+          { status: "cancelado" },
+          { where: { estudante_id: Number(id) },
+          transaction }
+        );
+      })
+      
+      return res
+        .status(200)
+        .json({ message: `matrículas ref. estudante ${id} canceladas.` });
     } catch (error) {
       return res.status(500).json(error.message);
     }
