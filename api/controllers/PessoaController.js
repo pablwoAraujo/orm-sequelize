@@ -80,12 +80,20 @@ class PessoaController {
   static async findAllRegistrationNumberByPerson(req, res) {
     const { estudanteId } = req.params;
     try {
-      const allRegistrationNumber = await database.Matriculas.findAll({
-        where: {
-          estudante_id: Number(estudanteId),
-        },
+      // Maneira tradicional
+      // const allRegistrationNumber = await database.Matriculas.findAll({
+      //   where: {
+      //     estudante_id: Number(estudanteId),
+      //   },
+      // });
+
+      // Trabalhando com o escopo da associação
+      const pessoa = await database.Pessoas.findOne({
+        where: { id: Number(estudanteId) },
       });
-      return res.status(200).json(allRegistrationNumber);
+
+      const matriculas = await pessoa.getAulasComStatusConfirmado();
+      return res.status(200).json(matriculas);
     } catch (error) {
       return res.status(500).json(error.message);
     }
