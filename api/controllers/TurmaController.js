@@ -75,6 +75,40 @@ class TurmaController {
       return res.status(500).json(error.message);
     }
   }
+
+  static async findRegistrationNumberByClass(req, res) {
+    const { id } = req.params;
+    try {
+      const matriculas = await database.Matriculas.findAndCountAll({
+        where: {
+          turma_id: Number(id),
+          status: "confirmado",
+        },
+        limit: 20,
+        order: [["createdAt", "DESC"]],
+      });
+      return res.status(200).json(matriculas);
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async findFullClasses(req, res) {
+    const lotacao = 4;
+    try {
+      const turmasLotadas = await database.Matriculas.findAndCountAll({
+        where: {
+          status: "confirmado",
+        },
+        attributes: ["turma_id"],
+        group: ["turma_id"],
+        having: Sequelize.literal(`count(turma_id)  >= ${lotacao}`),
+      });
+      return res.status(200).json(turmasLotadas.count);
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
 }
 
 module.exports = TurmaController;
