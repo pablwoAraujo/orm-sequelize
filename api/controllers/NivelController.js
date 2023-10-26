@@ -1,9 +1,12 @@
-const database = require("../models");
+// const database = require("../models");
+
+const Services = require("../services/Services");
+const niveisService = new Services("Niveis");
 
 class NivelController {
   static async findAll(req, res) {
     try {
-      const todosOsNiveis = await database.Niveis.findAll();
+      const todosOsNiveis = await niveisService.findAll();
       return res.status(200).json(todosOsNiveis);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -13,9 +16,7 @@ class NivelController {
   static async findById(req, res) {
     const { id } = req.params;
     try {
-      const nivel = await database.Niveis.findOne({
-        where: { id },
-      });
+      const nivel = await niveisService.findById(id);
       return res.status(200).json(nivel);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -23,9 +24,9 @@ class NivelController {
   }
 
   static async create(req, res) {
-    const nivel = req.body;
+    const data = req.body;
     try {
-      const registered = await database.Niveis.create(nivel);
+      const registered = await niveisService.create(data);
       return res.status(200).json(registered);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -36,10 +37,9 @@ class NivelController {
     const { id } = req.params;
     const info = req.body;
     try {
-      await database.Niveis.update(info, { where: { id } });
-      const updatedNivel = await database.Niveis.findOne({
-        where: { id },
-      });
+      await niveisService.update(info, id);
+      const updatedNivel = await niveisService.findById(id);
+
       return res.status(200).json(updatedNivel);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -49,8 +49,18 @@ class NivelController {
   static async delete(req, res) {
     const { id } = req.params;
     try {
-      await database.Niveis.destroy({ where: { id } });
+      await niveisService.delete(id);
       return res.status(200).json({ message: `id ${id} deleted.` });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async restore(req, res) {
+    const { id } = req.params;
+    try {
+      await niveisService.restore(id);
+      return res.status(200).json({ message: `id ${id} restored.` });
     } catch (error) {
       return res.status(500).json(error.message);
     }
